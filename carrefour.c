@@ -150,22 +150,25 @@ int main (int argc, char ** argv){
             getchar();
             
             switch (rep) {
-                    
-                case 'P'|'p':
+                   
+				case 'P' :
+                case 'p' :
                     
                     car = genereCar(PRIMARY_ROUTE);
                     usleep(random() % 1000000);
                     carsCrossroad(car);
                     if (shared->end) exit(0);
                     break;
-                case 'S'|'s':
+				case 'S' :
+                case 's' :
                     
                     car = genereCar(SECONDARY_ROUTE);
                     usleep(random() % 1000000);
                     carsCrossroad(car);
                     if (shared->end) exit(0);
                     break;
-                case 'q'|'Q':
+				case 'Q' :
+                case 'q' :
                     /* quit */
                     puts("quit");
                     /********* release memory ***/
