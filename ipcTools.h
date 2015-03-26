@@ -59,8 +59,8 @@ int semfree(int semid);
  * return 0, if they are an error
  *******************************/
 void *  shmalloc( key_t key, int size);
-//static int shmstat(key_t key, struct shmid_ds * buf) ;
-//static int shmattaches(key_t key);
+ int shmstat(key_t key, struct shmid_ds * buf) ;
+ int shmattaches(key_t key);
 /****************************
  * freed the SM
  *

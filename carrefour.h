@@ -35,6 +35,9 @@ typedef struct {
     int numberOfAllCarCreated;
     int firstRoadLights;
     int secondRoadLights;
+    int nbCarWaitingFirstRoadLights;
+    int nbCarWaitingSecondRoadLights;
+
 } Shared;
 extern Shared * shared;
 
@@ -48,6 +51,7 @@ extern int crossroadMutex;
 extern int roadLights[NB_ROADLIGHTS];
 extern int drive[NB_ROADLIGHTS];
 
-
+/***** the shared memory key's ****/
+extern int sharedKey;// now we can detached all the link, no matter where it found
  
 #endif /* defined(____carrefour__) */

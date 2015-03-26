@@ -1,5 +1,5 @@
 
-all :	carrefour
+all :	crossroad
 
 
 cars.o : cars.h cars.c ipcTools.h carrefour.h
@@ -12,9 +12,9 @@ ipcTools.o : ipcTools.h ipcTools.c
 carrefour.o : carrefour.h carrefour.c
 	gcc -c -g carrefour.c
 
-carrefour : carrefour.o cars.o ipcTools.o 
-	gcc -o carrefour carrefour.o cars.o ipcTools.o 
+crossroad : carrefour.o cars.o ipcTools.o 
+	gcc -o crossroad carrefour.o cars.o ipcTools.o 
 
 
 clean :
-	rm -f *.o  carrefour
+	rm -f *.o  crossroad

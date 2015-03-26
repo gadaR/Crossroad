@@ -26,5 +26,6 @@ typedef struct{
     int index;
 }Car;
 Car genereCar(int route);
+Car genereCarRandomly( int valMax);
 void carsCrossroad(Car car);
 #endif /* defined(____cars__) */

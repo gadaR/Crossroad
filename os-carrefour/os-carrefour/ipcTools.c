@@ -82,25 +82,25 @@ void * shmalloc(key_t key, int size) {
     }
     return res;
 }
-//static int shmstat(key_t key, struct shmid_ds * buf) {
-//    // Check if it exists locally
-//    int shmid = shmget(key, 0, 0644);
-//    if (shmid == -1) {
-//        perror("not accessible");
-//        return -1;
-//    }
-//    // put stats in buf
-//    return shmctl(shmid, IPC_STAT, buf);
-//}
+ int shmstat(key_t key, struct shmid_ds * buf) {
+    // Check if it exists locally
+    int shmid = shmget(key, 0, 0600);
+    if (shmid == -1) {
+        perror("not accessible");
+        return -1;
+    }
+    // put stats in buf
+    return shmctl(shmid, IPC_STAT, buf);
+}
 
-//static int shmattaches(key_t key) {
-//    struct shmid_ds stats;
-//    if (shmstat(key, &stats) == -1) {
-//        perror("stats failed");
-//        return -1;
-//    }
-//    return stats.shm_nattch;
-//}
+ int shmattaches(key_t key) {
+    struct shmid_ds stats;
+    if (shmstat(key, &stats) == -1) {
+        perror("stats failed");
+        return -1;
+    }
+    return stats.shm_nattch;
+}
 
 /****************************
  * freed the SM
@@ -113,9 +113,9 @@ void * shmalloc(key_t key, int size) {
  ***************************/
 int shmfree(key_t key, void * addr) {
     // Check if it exists
-    int shmid = shmget(key, 0, 0644);
+    int shmid = shmget(key, 0, 0600);
     if (shmid == -1) {
-//        perror("shared memory space already free'd");
+        perror("shared memory space already free'd");
         return 0;
     }
     
@@ -132,7 +132,7 @@ int shmfree(key_t key, void * addr) {
         return -1;
     }
     if (stats.shm_nattch > 0) {
-        printf("shared memory still attached (%d links), destroy aborted\n", stats.shm_nattch);
+//        printf("shared memory still attached (%d links), destroy aborted\n", stats.shm_nattch);
         return -1;
     } else {
         return shmctl(shmid, IPC_RMID, 0);
