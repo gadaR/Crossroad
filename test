@@ -1,4 +1,4 @@
 #this is a commentary
--a 400 -n 10 -t 1000 //this is an other one
+I want generate cars after 500 ms in maximum and I want generate 7 cars, the  roadLight have to wait 300 ms before turning to red
 
 /* and another one here */

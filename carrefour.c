@@ -97,7 +97,6 @@ int main (int argc, char ** argv){
     shared->numberOfAllCarCreated=1;
     shared->firstRoadLights=GREEN;
     shared->secondRoadLights=RED;
-    puts("CROSSROAD : the roadLight on the route 1 is red ");
     shared->nbCarWaitingFirstRoadLights = 0;
     shared->timeToWaitRoadLights=1000;//in ms, by default we wait 1s econd
     for (i = 0; i < NB_ROADLIGHTS; i++) {
@@ -170,7 +169,9 @@ int main (int argc, char ** argv){
         
         puts("press q if you want to exit\n");
 
-        puts("press : \n - P if you want to create a car in the first route \n - S in the second one \n");
+        puts("press : \n - P if you want to create a car in the primary road \n - S in the secondary one \n");
+        puts("CROSSROAD : the roadLight on the route 1 is red ");
+
                 while (1) {
 
             
@@ -228,7 +229,9 @@ int main (int argc, char ** argv){
                             
                             /*** automatic mode ***/
                             if (strcmp(argv[i],"-a")==0) {
-                                valMaxTimeToWaitForCreatingCar = atoi(argv[i+1]);
+                                if (i+1< argc) {
+                                    valMaxTimeToWaitForCreatingCar = atoi(argv[i+1]);
+                                }
                                 
                             }
                             if (strcmp(argv[i],"-t")==0) {
