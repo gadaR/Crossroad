@@ -221,7 +221,7 @@ int main (int argc, char ** argv){
         }
     
                     }else{
-                        int nbCarsMax = 2;
+                        int nbCarsMax = 30;
                         int valMaxTimeToWaitForCreatingCar = 1000;
                         /** read the argument **/
                         for (i=0; i<argc; i++) {
