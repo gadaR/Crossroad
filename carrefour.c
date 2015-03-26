@@ -206,7 +206,7 @@ int main (int argc, char ** argv){
                     shmfree(sharedKey, shared);
                     exit(0);
                 default:
-                    puts(" Error : you can only to press : \n - P if you want to create a car in the first route \n - S in the second one \n");
+                    puts(" Error : you can only press : \n - P if you want to create a car in the first route \n - S in the second one \n");
                     break;
             }
         }
