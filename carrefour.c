@@ -37,14 +37,16 @@ void changeRoadLights(  int route){
             printf("CROSSROAD : %d cars are freed \n ",shared->nbCarWaitingFirstRoadLights);
             V(drive[PRIMARY_ROUTE]);
         }
+//        printf("\n\ntime to wait %d \n\n", shared->timeToWaitRoadLights);
         usleep(shared->timeToWaitRoadLights*2000);
         shared->firstRoadLights= RED;
         V(roadLights[SECONDARY_ROUTE]);
-        printf("CROSSROAD : the roadLight on the route %d is red \n", route);
         if (shared->end){	/* if prog stopped while we were waiting */
             shmfree(sharedKey, shared);
             exit(0);
         }
+        printf("CROSSROAD : the roadLight on the route %d is red \n", route);
+        
 
     }
     }else if (route ==SECONDARY_ROUTE){
@@ -64,6 +66,10 @@ void changeRoadLights(  int route){
             usleep(shared->timeToWaitRoadLights*1000);
             shared->secondRoadLights= RED;
             V(roadLights[PRIMARY_ROUTE]);
+            if (shared->end){	/* if prog stopped while we were waiting */
+                shmfree(sharedKey, shared);
+                exit(0);
+            }
             printf("CROSSROAD : the roadLight on the route %d is red \n", route);
 
         }
@@ -91,6 +97,7 @@ int main (int argc, char ** argv){
     shared->numberOfAllCarCreated=1;
     shared->firstRoadLights=GREEN;
     shared->secondRoadLights=RED;
+    puts("CROSSROAD : the roadLight on the route 1 is red ");
     shared->nbCarWaitingFirstRoadLights = 0;
     shared->timeToWaitRoadLights=1000;//in ms, by default we wait 1s econd
     for (i = 0; i < NB_ROADLIGHTS; i++) {
@@ -176,8 +183,6 @@ int main (int argc, char ** argv){
                 case 'p' :
                     
                     car = genereCar(PRIMARY_ROUTE);
-                    usleep(100000);// car go in the crossroad
-                    carsCrossroad(car);
                     if (shared->end){
                         shmfree(sharedKey, shared);
                         exit(0);
@@ -187,8 +192,6 @@ int main (int argc, char ** argv){
                 case 's' :
                     
                     car = genereCar(SECONDARY_ROUTE);
-                    usleep(100000);// car go in the crossroad
-                    carsCrossroad(car);
                     if (shared->end){
                         shmfree(sharedKey, shared);
                         exit(0);
@@ -205,9 +208,6 @@ int main (int argc, char ** argv){
                     for (i = 0; i < NB_ROADLIGHTS; i++)
                         semfree(drive[i]);
                     shmfree(sharedKey, shared);
-                    waitpid(car.pid,0,0);
-                    waitpid(pidPrimaryRoadLight,0,0);
-                    waitpid(pidSecondRoadLight,0,0);
                     puts("END CROSSROAD");
                     exit(0);
                 default:
@@ -249,12 +249,7 @@ int main (int argc, char ** argv){
                         }
                         Car car;
                          while (shared->numberOfAllCarCreated < nbCarsMax) {
-                            car = genereCarRandomly(valMaxTimeToWaitForCreatingCar);
-                             usleep(100000);// car go in the crossroad
-                             if (car.index <= nbCarsMax && car.index > 0) {
-                                 carsCrossroad(car);
-
-                             }
+                            car = genereCarRandomly(valMaxTimeToWaitForCreatingCar, nbCarsMax);
                         }
                         /* quit */
                         /********* release memory ***/
@@ -265,14 +260,19 @@ int main (int argc, char ** argv){
                         for (i = 0; i < NB_ROADLIGHTS; i++)
                             semfree(drive[i]);
                         shmfree(sharedKey, shared);
-                        waitpid(car.pid,0,0);
-                        waitpid(pidPrimaryRoadLight,0,0);
-                        waitpid(pidSecondRoadLight,0,0);
+
                         puts("END CROSSROAD");
 
+                        exit(0);
+                        
+                        
                     }
-    
    
+    while (waitpid(car.pid,0,0));
+    while (waitpid(pidPrimaryRoadLight,0,0));
+    while (waitpid(pidSecondRoadLight,0,0));
+    puts("END CROSSROAD");
+
     return 0;
     
     

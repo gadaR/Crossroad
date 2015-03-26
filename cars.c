@@ -13,6 +13,11 @@
 
 Car genereCar(int route){
     Car car ;
+    if (shared->end){
+        shmfree(sharedKey, shared);
+        exit(0);
+    }
+
         switch (fork()) {
             case -1:
                 puts("error during car generation");
@@ -22,22 +27,25 @@ Car genereCar(int route){
                 car.route = route;
                 car.index = shared->numberOfAllCarCreated;
                 shared->numberOfAllCarCreated ++;
+                usleep(300000);// car go in the crossroad
+                carsCrossroad(car);
+                exit(0);
         }
-    if (shared->end){	/* if prog stopped while we were waiting */
-        shmfree(sharedKey, shared);
-        exit(0);
-    }
+    
     return car;
-
     
 }
 
-Car genereCarRandomly( int valMax){
+Car genereCarRandomly( int valMax, int nbCarsMax){
     int route = random()%2;
     int timeToWait = random()%valMax;
     Car car ;
-
+    
     usleep(timeToWait*1000);
+    if (shared->end){
+        shmfree(sharedKey, shared);
+        exit(0);
+    }
         switch (fork()) {
             case -1:
                 puts("error in genere car");
@@ -47,13 +55,15 @@ Car genereCarRandomly( int valMax){
                 car.route = route;
                 car.index = shared->numberOfAllCarCreated;
                 shared->numberOfAllCarCreated ++;
+                usleep(300000);// car go in the crossroad
+                if (car.index <= nbCarsMax && car.index > 0) {
+                    carsCrossroad(car);
+                    
+                }
+                exit(0);
         }
 
-    
-        if (shared->end){
-        shmfree(sharedKey, shared);
-        exit(0);
-    }
+  
     return car;
     
     
@@ -66,15 +76,7 @@ void carsCrossroad(Car car){
                 printf("\t CARS : the car %d is waiting the roadLights to turn to green in the primary route\n", car.index);
                 shared->nbCarWaitingFirstRoadLights ++;
                 printf("\t CARS : %d car(s) are/is waiting in the principal route \n ",shared->nbCarWaitingFirstRoadLights);
-                if (shared->end){
-                    shmfree(sharedKey, shared);
-                    exit(0);
-                }
                 P(drive[PRIMARY_ROUTE]);
-                if (shared->end){	/* if prog stopped while we were waiting */
-                    shmfree(sharedKey, shared);
-                    exit(0);
-                }
                 shared->nbCarWaitingFirstRoadLights --;
             }
             //entrer ds le carrefour
@@ -91,7 +93,7 @@ void carsCrossroad(Car car){
                 shared->numberOfCarsInCrossroads ++;
                 printf("CROSSROAD : %d car(s) in the crossroad\n",shared->numberOfCarsInCrossroads );
                 V(crossroadMutex);
-                usleep(100000);// car go in the crossroad
+                usleep(500000);// car go in the crossroad
                 
                 P(crossroadMutex);
                 if (shared->end){	/* if prog stopped while we were waiting */
@@ -113,15 +115,7 @@ void carsCrossroad(Car car){
 
                 shared->nbCarWaitingSecondRoadLights ++;
                 printf("\t CARS : %d car(s) are/is waiting in the secondary route \n ",shared->nbCarWaitingSecondRoadLights);
-                if (shared->end){
-                    shmfree(sharedKey, shared);
-                    exit(0);
-                }
                 P(drive[SECONDARY_ROUTE]);
-                if (shared->end){	/* if prog stopped while we were waiting */
-                    shmfree(sharedKey, shared);
-                    exit(0);
-                }
 
                 shared->nbCarWaitingSecondRoadLights --;
 
@@ -140,13 +134,10 @@ void carsCrossroad(Car car){
             shared->numberOfCarsInCrossroads ++;
             printf("CROSSROAD : %d car(s) in the crossroad\n",shared->numberOfCarsInCrossroads );
             V(crossroadMutex);
-                usleep(100000);// car go in the crossroad
+                usleep(500000);// car go in the crossroad
             
             P(crossroadMutex);
-                if (shared->end){	/* if prog stopped while we were waiting */
-                    shmfree(sharedKey, shared);
-                    exit(0);
-                }
+               
             shared->numberOfCarsInCrossroads --;
             V(crossroadMutex);
             printf("\t CARS : the car %d left the crossroad \n", car.index);
