@@ -122,6 +122,7 @@ void carsCrossroad(Car car){
                     shmfree(sharedKey, shared);
                     exit(0);
                 }
+
                 shared->nbCarWaitingSecondRoadLights --;
 
             }
