@@ -221,7 +221,7 @@ int main (int argc, char ** argv){
         }
     
                     }else{
-                        int nbCarsMax = 50;
+                        int nbCarsMax = 2;
                         int valMaxTimeToWaitForCreatingCar = 1000;
                         /** read the argument **/
                         for (i=0; i<argc; i++) {
@@ -243,7 +243,8 @@ int main (int argc, char ** argv){
                                 //carMax=atoi(argv[i+1])
                             }
                             if (strcmp(argv[i],"-f")==0) {
-                                printf("file name %s\n", argv[i+1]);
+                                readFile(argv[i+1], &nbCarsMax, &valMaxTimeToWaitForCreatingCar);
+//                                printf(" a= %d, n = %d \n", valMaxTimeToWaitForCreatingCar, nbCarsMax);
                                 
                             }
                         }
