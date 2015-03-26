@@ -30,12 +30,12 @@ void changeRoadLights( int timeToWaitRoadLights, int route){
         V(roadLights[PRIMARY_ROUTE]);
         if (shared->end) exit(0);		/* if prog stopped while we were waiting */
             shared->firstRoadLights= GREEN;
-        printf("CROSSROAD : the roadLight in the route %d is green\n", route);
+        printf("CROSSROAD : the roadLight on the road %d is green\n", route);
         V(drive[PRIMARY_ROUTE]);
         usleep(timeToWaitRoadLights*2000);
         shared->firstRoadLights= RED;
         V(roadLights[SECONDARY_ROUTE]);
-        printf("CROSSROAD : the roadLight in the route %d is red \n", route);
+        printf("CROSSROAD : the roadLight on the road %d is red \n", route);
         usleep(timeToWaitRoadLights*1000);
 
     }
@@ -45,12 +45,12 @@ void changeRoadLights( int timeToWaitRoadLights, int route){
             P(roadLights[SECONDARY_ROUTE]);
             if (shared->end) exit(0);		/* if prog stopped while we were waiting */
             shared->secondRoadLights= GREEN;
-            printf("CROSSROAD : the roadLight in the route %d is green\n", route);
+            printf("CROSSROAD : the roadLight on the road %d is green\n", route);
             V(drive[SECONDARY_ROUTE]);
             usleep(timeToWaitRoadLights*1000);
             shared->secondRoadLights= RED;
             V(roadLights[PRIMARY_ROUTE]);
-            printf("CROSSROAD : the roadLight in the route %d is red \n", route);
+            printf("CROSSROAD : the roadLight on the road %d is red \n", route);
             usleep(timeToWaitRoadLights*2000);
 
         }
@@ -69,7 +69,7 @@ int main (int argc, char ** argv){
     /* shared memory / semaphore initialisation  */
     shared = (Shared*)shmalloc(sharedKey, sizeof(Shared));
     if (!shared) {
-        perror("error allocating shared memory");
+        perror("error when allocating shared memory");
         return 1;
     }
     shared->end = 0;
@@ -82,7 +82,7 @@ int main (int argc, char ** argv){
         roadLights[i] = semalloc(roadLightsKey[i],0);
         if (roadLights[i] == -1) {
             int j = i-1;
-            perror("error creating semaphore");
+            perror("error during semaphore creation");
             while (j>=0)
                 semfree(roadLightsKey[j--]);
             shmfree(sharedKey, shared);
@@ -94,7 +94,7 @@ int main (int argc, char ** argv){
         drive[i] = semalloc(driveKey[i],0);
         if (drive[i] == -1) {
             int j = i-1;
-            perror("error creating semaphore");
+            perror("error during semaphore creation");
             while (j>=0)
                 semfree(driveKey[j--]);
             shmfree(sharedKey, shared);
@@ -104,7 +104,7 @@ int main (int argc, char ** argv){
 
     crossroadMutex = mutalloc(crossroadMutexKey);
     if (crossroadMutex == -1) {
-        perror("error creating mutex");
+        perror("error during mutex creation");
         shmfree(sharedKey, shared);
             mutfree(crossroadMutexKey);
         return 2;
@@ -140,10 +140,10 @@ int main (int argc, char ** argv){
     
     /*** interactif mode ***/
     if (argc == 1) {
-        puts("you choose the interactif mode\n");
+        puts("you choose the interactive mode\n");
         
         puts("press q if you want to exit\n");
-        puts("press : \n - P if you want to create a car in the first route \n - S in the second one \n");
+        puts("press : \n - P if you want to create a car on the first road \n - S on the second one \n");
         while (1) {
             
             scanf("%c", &rep);
@@ -178,7 +178,7 @@ int main (int argc, char ** argv){
                     shmfree(sharedKey, shared);
                     exit(0);
                 default:
-                    puts(" Error : you have only to press : \n - P if you want to create a car in the first route \n - S in the second one \n");
+                    puts(" Error : you can only to press : \n - P if you want to create a car in the first route \n - S in the second one \n");
                     break;
             }
         }
