@@ -109,21 +109,14 @@ void carsCrossroad(Car car){
             
         case SECONDARY_ROUTE:
             if (shared->secondRoadLights == RED) {
-<<<<<<< Updated upstream
                 printf("\t CARS : the car %d is waiting the roadLights to turn to green on the secondary road \n", car.index);
-=======
-<<<<<<< HEAD
-                printf("\t CARS : the car %d is waiting the roadLights to turn to green int the secondary route \n", car.index);
+
                 shared->nbCarWaitingSecondRoadLights ++;
                 printf("\t CARS : %d car(s) are/is waiting in the secondary route \n ",shared->nbCarWaitingSecondRoadLights);
                 if (shared->end){
                     shmfree(sharedKey, shared);
                     exit(0);
                 }
-=======
-                printf("\t CARS : the car %d is waiting the roadLights to turn to green on the secondary road \n", car.index);
->>>>>>> origin/master
->>>>>>> Stashed changes
                 P(drive[SECONDARY_ROUTE]);
                 if (shared->end){	/* if prog stopped while we were waiting */
                     shmfree(sharedKey, shared);
@@ -136,20 +129,12 @@ void carsCrossroad(Car car){
             //entrer ds le carrefour
             
             P(crossroadMutex);
-<<<<<<< HEAD
                 if (shared->end){	/* if prog stopped while we were waiting */
                     shmfree(sharedKey, shared);
                     exit(0);
                 }
-            printf("\t CARS : the car %d is in the crossroad \n", car.index);
-=======
-            if (shared->end) exit(0);		/* if prog stopped while we were waiting */
-            
             printf("\t CARS : the car %d is on the crossroad \n", car.index);
-<<<<<<< Updated upstream
-=======
->>>>>>> origin/master
->>>>>>> Stashed changes
+
             
             shared->numberOfCarsInCrossroads ++;
             printf("CROSSROAD : %d car(s) in the crossroad\n",shared->numberOfCarsInCrossroads );
