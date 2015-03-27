@@ -2,7 +2,7 @@
 /// \file readFileRegex.h
 //  
 //
-/// \brief reaf from a file informations, then analyse them with the regular expression
+/// \brief read from a file informations, then analyse them with the regular expression
 ///\author { Gada REZGUI and Alexandre FAUCHER}
 //
 
@@ -18,5 +18,13 @@
 #include <regex.h>
 #include "carrefour.h"
 
+/*************************************************************************
+ * \fn readFile (char * filename, int * nbCarsMax, int * valMaxTimeToWaitForCreatingCar)
+ * \brief read data from a file
+ *
+ * \param filename the name of the file
+ * \param nbCarsMax pointer
+ * \param valMaxTimeToWaitForCreatingCar pointer
+ *************************************************************************/
 void readFile (char * filename, int * nbCarsMax, int * valMaxTimeToWaitForCreatingCar);
 #endif /* defined(____readFileRegex__) */

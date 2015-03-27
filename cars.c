@@ -9,7 +9,13 @@
 #include "cars.h"
 
 
-
+/*************************************************************************
+ * \fn Car genereCar(int route)
+ * \brief genere car (process)
+ *
+ * \param route the route we choose to manage.
+ * \return car the car we genere
+ *************************************************************************/
 Car genereCar(int route){
     Car car ;
     if (shared->end){
@@ -40,7 +46,14 @@ Car genereCar(int route){
     return car;
     
 }
-
+/*************************************************************************
+ * \fn Car genereCarRandomly( int valMax, int nbCarsMax)
+ * \brief genere car (process)
+ *
+ * \param valMax the maximum value that the user choose to wait.
+ * \param nbCarsMax maximum number of cars that we have to create.
+ * \return car the car we genere
+ *************************************************************************/
 Car genereCarRandomly( int valMax, int nbCarsMax){
     int route = random()%2;
     int timeToWait = random()%valMax;
@@ -83,7 +96,12 @@ Car genereCarRandomly( int valMax, int nbCarsMax){
     
     
 }
-
+/*************************************************************************
+ * \fn void carsCrossroad(Car car)
+ * \brief manage the circulation of the car in the crossroad.
+ *
+ * \param car the car we choose to manage.
+ *************************************************************************/
 void carsCrossroad(Car car){
     switch (car.route) {
         case PRIMARY_ROUTE:

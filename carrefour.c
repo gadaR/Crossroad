@@ -12,8 +12,13 @@
 #include "carrefour.h"
 #include "readFileRegex.h"
 
-
+/***********************************
+ *  shared memory
+ *
+ **********************************/
 Shared * shared;
+int sharedKey;
+
 /**********************************
  * semaphores
  *********************************/
@@ -21,13 +26,16 @@ int crossroadMutex;
 int nbCarWaitingFirstRoadLightsMutex;
 int nbCarWaitingSecondRoadLightsMutex;
 int numberOfAllCarCreatedMutex;
-
-
 int drive[NB_ROADLIGHTS];
-
 int roadLights[NB_ROADLIGHTS];
 
-int sharedKey;
+/*************************************************************************
+ * \fn void changeRoadLights(int route)
+ * \brief manage the circulation in the crossroad wiht the road lights
+ *
+ * \param route the route which we choose to manage.
+ * \return O
+ *************************************************************************/
 
 void changeRoadLights(int route){
     if (route == PRIMARY_ROUTE) {
@@ -82,6 +90,15 @@ void changeRoadLights(int route){
     }
     
 }
+/*************************************************************************
+ * \fn int main (int argc, char ** argv)
+ * \brief program's beginning .
+ *
+ * \param argc number of arguments.
+ * \param argv value of arguments.
+
+ * \return O
+ *************************************************************************/
 int main (int argc, char ** argv){
     int i, roadLightsKey[NB_ROADLIGHTS], crossroadMutexKey, nbCarWaitingFirstRoadLightsMutexKey, nbCarWaitingSecondRoadLightsMutexKey, numberOfAllCarCreatedMutexKey , driveKey[NB_ROADLIGHTS];
     int pidPrimaryRoadLight, pidSecondRoadLight;

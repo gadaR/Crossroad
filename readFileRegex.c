@@ -7,8 +7,11 @@
 //
 
 #include "readFileRegex.h"
-/* The following is the size of a buffer to contain any error messages
- encountered when the regular expression is compiled. */
+/*********************************************************************
+ * \def MAX_ERROR_MSG
+ * The following is the size of a buffer to contain any error messages
+ * encountered when the regular expression is compiled. 
+ *********************************************************************/
 
 #define MAX_ERROR_MSG 0x1000
 
@@ -97,6 +100,14 @@ static int match_regex (regex_t * r, const char * to_match, int * nbCarsMax, int
     return 0;
 }
 
+/*************************************************************************
+ * \fn readFile (char * filename, int * nbCarsMax, int * valMaxTimeToWaitForCreatingCar)
+ * \brief read data from a file
+ *
+ * \param filename the name of the file
+ * \param nbCarsMax pointer
+ * \param valMaxTimeToWaitForCreatingCar pointer
+ *************************************************************************/
 void readFile (char * filename, int * nbCarsMax, int * valMaxTimeToWaitForCreatingCar) {
     int  tmps = 0;
     char * rep;

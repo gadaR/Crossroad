@@ -1,7 +1,7 @@
 //
-//  carrefour.h
+/// \file  carrefour.h
 //  
-//
+///\author { Gada REZGUI and Alexandre FAUCHER}
 //
 //
 
@@ -11,9 +11,18 @@
 
 #include <stdio.h>
 /***********************************
- *  consants
+ *  constants
+ *
+ ***********************************
  * \def PRIMARY_ROUTE
+ *
  * \def SECONDARY_ROUTE
+ *
+ * \def RED
+ *
+ * \def GREEN 
+ *
+ * \def NB_ROADLIGHTS
  **********************************/
 
 #define PRIMARY_ROUTE 0
@@ -25,20 +34,23 @@
 #define NB_ROADLIGHTS 2
 /***********************************
  *  shared memory
- * crossroads = 0 means that they 
- * are not cars in the crossroad
- * crossroads != 0 they are cars
+ *
+ **********************************
+ * \struct Shared carrefour.h
+ * \brief structure which includes 
+ *        all the shared memory
  **********************************/
 typedef struct {
-    int numberOfCarsInCrossroads;
-    int end;
-    int numberOfAllCarCreated;
-    int firstRoadLights;
-    int secondRoadLights;
+    int numberOfCarsInCrossroads;/*!< numberOfCarsInCrossroad = 0 mean that they
+                                  * are no car in the crossroad
+                                  * numberOfCarsInCrossroad != 0 they are cars */
+    int end;/*!< end of the program */
+    int numberOfAllCarCreated;/*!< we use it in the cars' index */
+    int firstRoadLights;/*!< indique the color of the roadLight, in the primary road. */
+    int secondRoadLights;/*!< indique the color of the roadLight, in the primary road. */
     int nbCarWaitingFirstRoadLights;
     int nbCarWaitingSecondRoadLights;
     int timeToWaitRoadLights;
-
 } Shared;
 extern Shared * shared;
 
@@ -63,7 +75,13 @@ extern int numberOfAllCarCreatedMutex;
 /***** the shared memory key's ****/
 extern int sharedKey;// now we can detached all the link, no matter where it found
 
-void createProcessConntrolRoadLight();
+/*************************************************************************
+ * \fn void changeRoadLights(int route)
+ * \brief manage the circulation in the crossroad.
+ *
+ * \param route the route which we choose to manage.
+ * \return O
+ *************************************************************************/
 void changeRoadLights(int route);
 
 #endif /* defined(____carrefour__) */
