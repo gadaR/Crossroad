@@ -1,0 +1,68 @@
+\hypertarget{carrefour_8c}{}\section{/\+Users/gadarezgui/\+Documents/cours/\+L3-\/\+I\+N\+F\+O/\+S6/os/\+O\+S-\/\+Project/carrefour.c File Reference}
+\label{carrefour_8c}\index{/\+Users/gadarezgui/\+Documents/cours/\+L3-\/\+I\+N\+F\+O/\+S6/os/\+O\+S-\/\+Project/carrefour.\+c@{/\+Users/gadarezgui/\+Documents/cours/\+L3-\/\+I\+N\+F\+O/\+S6/os/\+O\+S-\/\+Project/carrefour.\+c}}
+
+
+main program  
+
+
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$time.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}cars.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}carrefour.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}read\+File\+Regex.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{carrefour_8c_ae1f9dc980f0f76bd59a535660ac03a14}{}void {\bfseries change\+Road\+Lights} (int route)\label{carrefour_8c_ae1f9dc980f0f76bd59a535660ac03a14}
+
+\item 
+int \hyperlink{carrefour_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{carrefour_8c_a04bd34cb59a53a8d672804a54de62af6}{}\hyperlink{struct_shared}{Shared} $\ast$ {\bfseries shared}\label{carrefour_8c_a04bd34cb59a53a8d672804a54de62af6}
+
+\item 
+\hypertarget{carrefour_8c_ae29707e186c95a56c95c2aec93797521}{}int {\bfseries shared\+Key}\label{carrefour_8c_ae29707e186c95a56c95c2aec93797521}
+
+\item 
+\hypertarget{carrefour_8c_afbd1df01ac5abcac91042869c58e6221}{}int {\bfseries crossroad\+Mutex}\label{carrefour_8c_afbd1df01ac5abcac91042869c58e6221}
+
+\item 
+\hypertarget{carrefour_8c_a9b36a06a769a2ad6be556faa4bd85d11}{}int {\bfseries nb\+Car\+Waiting\+First\+Road\+Lights\+Mutex}\label{carrefour_8c_a9b36a06a769a2ad6be556faa4bd85d11}
+
+\item 
+\hypertarget{carrefour_8c_afbc35eab1249d2f70c0017df70efcff5}{}int {\bfseries nb\+Car\+Waiting\+Second\+Road\+Lights\+Mutex}\label{carrefour_8c_afbc35eab1249d2f70c0017df70efcff5}
+
+\item 
+\hypertarget{carrefour_8c_ac9d623ebb24aed5306504e1a966143f3}{}int {\bfseries number\+Of\+All\+Car\+Created\+Mutex}\label{carrefour_8c_ac9d623ebb24aed5306504e1a966143f3}
+
+\item 
+\hypertarget{carrefour_8c_a0e091d3cb7d4a35b240ee6051d741b7d}{}int {\bfseries drive} \mbox{[}N\+B\+\_\+\+R\+O\+A\+D\+L\+I\+G\+H\+T\+S\mbox{]}\label{carrefour_8c_a0e091d3cb7d4a35b240ee6051d741b7d}
+
+\item 
+\hypertarget{carrefour_8c_a7e4820b63c535a1f6300ce7846f9e0ff}{}int {\bfseries road\+Lights} \mbox{[}N\+B\+\_\+\+R\+O\+A\+D\+L\+I\+G\+H\+T\+S\mbox{]}\label{carrefour_8c_a7e4820b63c535a1f6300ce7846f9e0ff}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+main program 
+
+\begin{DoxyAuthor}{Author}
+\{ Gada R\+E\+Z\+G\+U\+I and Alexandre F\+A\+U\+C\+H\+E\+R\} 
+\end{DoxyAuthor}
+
+
+\subsection{Function Documentation}
+\hypertarget{carrefour_8c_a3c04138a5bfe5d72780bb7e82a18e627}{}\index{carrefour.\+c@{carrefour.\+c}!main@{main}}
+\index{main@{main}!carrefour.\+c@{carrefour.\+c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}\label{carrefour_8c_a3c04138a5bfe5d72780bb7e82a18e627}
+read the argument 

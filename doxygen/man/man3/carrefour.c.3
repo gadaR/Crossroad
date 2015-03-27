@@ -1,0 +1,79 @@
+.TH "/Users/gadarezgui/Documents/cours/L3-INFO/S6/os/OS-Project/carrefour.c" 3 "Fri Mar 27 2015" "crossroad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/Users/gadarezgui/Documents/cours/L3-INFO/S6/os/OS-Project/carrefour.c \- main program  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <string\&.h>\fP
+.br
+\fC#include <stdlib\&.h>\fP
+.br
+\fC#include <time\&.h>\fP
+.br
+\fC#include 'cars\&.h'\fP
+.br
+\fC#include 'carrefour\&.h'\fP
+.br
+\fC#include 'readFileRegex\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBchangeRoadLights\fP (int route)"
+.br
+.ti -1c
+.RI "int \fBmain\fP (int argc, char **argv)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBShared\fP * \fBshared\fP"
+.br
+.ti -1c
+.RI "int \fBsharedKey\fP"
+.br
+.ti -1c
+.RI "int \fBcrossroadMutex\fP"
+.br
+.ti -1c
+.RI "int \fBnbCarWaitingFirstRoadLightsMutex\fP"
+.br
+.ti -1c
+.RI "int \fBnbCarWaitingSecondRoadLightsMutex\fP"
+.br
+.ti -1c
+.RI "int \fBnumberOfAllCarCreatedMutex\fP"
+.br
+.ti -1c
+.RI "int \fBdrive\fP [NB_ROADLIGHTS]"
+.br
+.ti -1c
+.RI "int \fBroadLights\fP [NB_ROADLIGHTS]"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+main program 
+
+
+.PP
+\fBAuthor:\fP
+.RS 4
+{ Gada REZGUI and Alexandre FAUCHER} 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "int main (int argc, char ** argv)"
+read the argument 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for crossroad from the source code\&.

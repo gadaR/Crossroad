@@ -1,0 +1,51 @@
+\hypertarget{ipc_tools_8h}{}\section{/\+Users/gadarezgui/\+Documents/cours/\+L3-\/\+I\+N\+F\+O/\+S6/os/\+O\+S-\/\+Project/ipc\+Tools.h File Reference}
+\label{ipc_tools_8h}\index{/\+Users/gadarezgui/\+Documents/cours/\+L3-\/\+I\+N\+F\+O/\+S6/os/\+O\+S-\/\+Project/ipc\+Tools.\+h@{/\+Users/gadarezgui/\+Documents/cours/\+L3-\/\+I\+N\+F\+O/\+S6/os/\+O\+S-\/\+Project/ipc\+Tools.\+h}}
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$sys/sem.\+h$>$}\\*
+{\ttfamily \#include $<$sys/shm.\+h$>$}\\*
+{\ttfamily \#include $<$sys/types.\+h$>$}\\*
+{\ttfamily \#include $<$sys/ipc.\+h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{ipc_tools_8h_a45c8a1cc742b770f79825e79aa0c8ce7}{semalloc} (key\+\_\+t key, int val\+Init)
+\begin{DoxyCompactList}\small\item\em contain all the tools we need for using shared memory, mutex and semaphores \end{DoxyCompactList}\item 
+\hypertarget{ipc_tools_8h_a88d7899467093e27a485527986aad253}{}int {\bfseries mutalloc} (key\+\_\+t key)\label{ipc_tools_8h_a88d7899467093e27a485527986aad253}
+
+\item 
+\hypertarget{ipc_tools_8h_a07d9975feec68c95cb5aba62b9d24ed8}{}void {\bfseries P} (int semid)\label{ipc_tools_8h_a07d9975feec68c95cb5aba62b9d24ed8}
+
+\item 
+\hypertarget{ipc_tools_8h_a8a7b1645beb620891b3a8256143791e4}{}void {\bfseries V} (int semid)\label{ipc_tools_8h_a8a7b1645beb620891b3a8256143791e4}
+
+\item 
+\hypertarget{ipc_tools_8h_a1a1666796045a3210edd37d16b0f9625}{}int {\bfseries semfree} (int semid)\label{ipc_tools_8h_a1a1666796045a3210edd37d16b0f9625}
+
+\item 
+\hypertarget{ipc_tools_8h_af080071395746a4f810ad0b3780db5ff}{}int {\bfseries mutfree} (int m\+Id)\label{ipc_tools_8h_af080071395746a4f810ad0b3780db5ff}
+
+\item 
+\hypertarget{ipc_tools_8h_aaae3779ba3c90a6bd1db639fd20ef251}{}void $\ast$ {\bfseries shmalloc} (key\+\_\+t key, int size)\label{ipc_tools_8h_aaae3779ba3c90a6bd1db639fd20ef251}
+
+\item 
+\hypertarget{ipc_tools_8h_a78553fa546c531e6303a2869283c3b10}{}int {\bfseries shmfree} (key\+\_\+t key, void $\ast$addr)\label{ipc_tools_8h_a78553fa546c531e6303a2869283c3b10}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{ipc_tools_8h_a45c8a1cc742b770f79825e79aa0c8ce7}{}\index{ipc\+Tools.\+h@{ipc\+Tools.\+h}!semalloc@{semalloc}}
+\index{semalloc@{semalloc}!ipc\+Tools.\+h@{ipc\+Tools.\+h}}
+\subsubsection[{semalloc}]{\setlength{\rightskip}{0pt plus 5cm}int semalloc (
+\begin{DoxyParamCaption}
+\item[{key\+\_\+t}]{key, }
+\item[{int}]{val\+Init}
+\end{DoxyParamCaption}
+)}\label{ipc_tools_8h_a45c8a1cc742b770f79825e79aa0c8ce7}
+
+
+contain all the tools we need for using shared memory, mutex and semaphores 
+
+\begin{DoxyAuthor}{Author}
+\{ Gada R\+E\+Z\+G\+U\+I and Alexandre F\+A\+U\+C\+H\+E\+R\} 
+\end{DoxyAuthor}

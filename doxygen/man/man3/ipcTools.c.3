@@ -1,0 +1,56 @@
+.TH "/Users/gadarezgui/Documents/cours/L3-INFO/S6/os/OS-Project/ipcTools.c" 3 "Fri Mar 27 2015" "crossroad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/Users/gadarezgui/Documents/cours/L3-INFO/S6/os/OS-Project/ipcTools.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'ipcTools\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBsemalloc\fP (key_t key, int valInit)"
+.br
+.RI "\fIcontain all the tools we need for using shared memory, mutex and semaphores \fP"
+.ti -1c
+.RI "int \fBmutalloc\fP (key_t key)"
+.br
+.ti -1c
+.RI "void \fBP\fP (int semid)"
+.br
+.ti -1c
+.RI "void \fBV\fP (int semid)"
+.br
+.ti -1c
+.RI "int \fBsemfree\fP (int semid)"
+.br
+.ti -1c
+.RI "int \fBmutfree\fP (int mId)"
+.br
+.ti -1c
+.RI "void * \fBshmalloc\fP (key_t key, int size)"
+.br
+.ti -1c
+.RI "int \fBshmfree\fP (key_t key, void *addr)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "int semalloc (key_t key, int valInit)"
+
+.PP
+contain all the tools we need for using shared memory, mutex and semaphores 
+.PP
+\fBAuthor:\fP
+.RS 4
+{ Gada REZGUI and Alexandre FAUCHER} 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for crossroad from the source code\&.

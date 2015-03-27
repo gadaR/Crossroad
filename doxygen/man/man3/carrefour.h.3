@@ -1,0 +1,88 @@
+.TH "/Users/gadarezgui/Documents/cours/L3-INFO/S6/os/OS-Project/carrefour.h" 3 "Fri Mar 27 2015" "crossroad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/Users/gadarezgui/Documents/cours/L3-INFO/S6/os/OS-Project/carrefour.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <unistd\&.h>\fP
+.br
+\fC#include <stdio\&.h>\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBShared\fP"
+.br
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBPRIMARY_ROUTE\fP   0"
+.br
+.ti -1c
+.RI "#define \fBSECONDARY_ROUTE\fP   1"
+.br
+.ti -1c
+.RI "#define \fBRED\fP   0"
+.br
+.ti -1c
+.RI "#define \fBGREEN\fP   1"
+.br
+.ti -1c
+.RI "#define \fBNB_ROADLIGHTS\fP   2"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBchangeRoadLights\fP (int route)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBShared\fP * \fBshared\fP"
+.br
+.ti -1c
+.RI "int \fBroadLights\fP [NB_ROADLIGHTS]"
+.br
+.ti -1c
+.RI "int \fBdrive\fP [NB_ROADLIGHTS]"
+.br
+.ti -1c
+.RI "int \fBcrossroadMutex\fP"
+.br
+.ti -1c
+.RI "int \fBnbCarWaitingFirstRoadLightsMutex\fP"
+.br
+.ti -1c
+.RI "int \fBnbCarWaitingSecondRoadLightsMutex\fP"
+.br
+.ti -1c
+.RI "int \fBnumberOfAllCarCreatedMutex\fP"
+.br
+.ti -1c
+.RI "int \fBsharedKey\fP"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define PRIMARY_ROUTE   0"
+
+.PP
+\fBAuthor:\fP
+.RS 4
+{ Gada REZGUI and Alexandre FAUCHER} 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for crossroad from the source code\&.

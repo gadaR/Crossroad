@@ -1,0 +1,68 @@
+\hypertarget{carrefour_8h}{}\section{/\+Users/gadarezgui/\+Documents/cours/\+L3-\/\+I\+N\+F\+O/\+S6/os/\+O\+S-\/\+Project/carrefour.h File Reference}
+\label{carrefour_8h}\index{/\+Users/gadarezgui/\+Documents/cours/\+L3-\/\+I\+N\+F\+O/\+S6/os/\+O\+S-\/\+Project/carrefour.\+h@{/\+Users/gadarezgui/\+Documents/cours/\+L3-\/\+I\+N\+F\+O/\+S6/os/\+O\+S-\/\+Project/carrefour.\+h}}
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_shared}{Shared}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{carrefour_8h_a30d40afaa81e273b2bb09f76dc36c147}{P\+R\+I\+M\+A\+R\+Y\+\_\+\+R\+O\+U\+T\+E}~0
+\item 
+\hypertarget{carrefour_8h_aa2180c3565ad74c8a2d99b980394db8d}{}\#define {\bfseries S\+E\+C\+O\+N\+D\+A\+R\+Y\+\_\+\+R\+O\+U\+T\+E}~1\label{carrefour_8h_aa2180c3565ad74c8a2d99b980394db8d}
+
+\item 
+\hypertarget{carrefour_8h_a8d23feea868a983c8c2b661e1e16972f}{}\#define {\bfseries R\+E\+D}~0\label{carrefour_8h_a8d23feea868a983c8c2b661e1e16972f}
+
+\item 
+\hypertarget{carrefour_8h_acfbc006ea433ad708fdee3e82996e721}{}\#define {\bfseries G\+R\+E\+E\+N}~1\label{carrefour_8h_acfbc006ea433ad708fdee3e82996e721}
+
+\item 
+\hypertarget{carrefour_8h_a520aa1a2e455f9d1c702c486e15aef54}{}\#define {\bfseries N\+B\+\_\+\+R\+O\+A\+D\+L\+I\+G\+H\+T\+S}~2\label{carrefour_8h_a520aa1a2e455f9d1c702c486e15aef54}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{carrefour_8h_ae1f9dc980f0f76bd59a535660ac03a14}{}void {\bfseries change\+Road\+Lights} (int route)\label{carrefour_8h_ae1f9dc980f0f76bd59a535660ac03a14}
+
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{carrefour_8h_a04bd34cb59a53a8d672804a54de62af6}{}\hyperlink{struct_shared}{Shared} $\ast$ {\bfseries shared}\label{carrefour_8h_a04bd34cb59a53a8d672804a54de62af6}
+
+\item 
+\hypertarget{carrefour_8h_a7e4820b63c535a1f6300ce7846f9e0ff}{}int {\bfseries road\+Lights} \mbox{[}N\+B\+\_\+\+R\+O\+A\+D\+L\+I\+G\+H\+T\+S\mbox{]}\label{carrefour_8h_a7e4820b63c535a1f6300ce7846f9e0ff}
+
+\item 
+\hypertarget{carrefour_8h_a0e091d3cb7d4a35b240ee6051d741b7d}{}int {\bfseries drive} \mbox{[}N\+B\+\_\+\+R\+O\+A\+D\+L\+I\+G\+H\+T\+S\mbox{]}\label{carrefour_8h_a0e091d3cb7d4a35b240ee6051d741b7d}
+
+\item 
+\hypertarget{carrefour_8h_afbd1df01ac5abcac91042869c58e6221}{}int {\bfseries crossroad\+Mutex}\label{carrefour_8h_afbd1df01ac5abcac91042869c58e6221}
+
+\item 
+\hypertarget{carrefour_8h_a9b36a06a769a2ad6be556faa4bd85d11}{}int {\bfseries nb\+Car\+Waiting\+First\+Road\+Lights\+Mutex}\label{carrefour_8h_a9b36a06a769a2ad6be556faa4bd85d11}
+
+\item 
+\hypertarget{carrefour_8h_afbc35eab1249d2f70c0017df70efcff5}{}int {\bfseries nb\+Car\+Waiting\+Second\+Road\+Lights\+Mutex}\label{carrefour_8h_afbc35eab1249d2f70c0017df70efcff5}
+
+\item 
+\hypertarget{carrefour_8h_ac9d623ebb24aed5306504e1a966143f3}{}int {\bfseries number\+Of\+All\+Car\+Created\+Mutex}\label{carrefour_8h_ac9d623ebb24aed5306504e1a966143f3}
+
+\item 
+\hypertarget{carrefour_8h_ae29707e186c95a56c95c2aec93797521}{}int {\bfseries shared\+Key}\label{carrefour_8h_ae29707e186c95a56c95c2aec93797521}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{carrefour_8h_a30d40afaa81e273b2bb09f76dc36c147}{}\index{carrefour.\+h@{carrefour.\+h}!P\+R\+I\+M\+A\+R\+Y\+\_\+\+R\+O\+U\+T\+E@{P\+R\+I\+M\+A\+R\+Y\+\_\+\+R\+O\+U\+T\+E}}
+\index{P\+R\+I\+M\+A\+R\+Y\+\_\+\+R\+O\+U\+T\+E@{P\+R\+I\+M\+A\+R\+Y\+\_\+\+R\+O\+U\+T\+E}!carrefour.\+h@{carrefour.\+h}}
+\subsubsection[{P\+R\+I\+M\+A\+R\+Y\+\_\+\+R\+O\+U\+T\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+R\+I\+M\+A\+R\+Y\+\_\+\+R\+O\+U\+T\+E~0}\label{carrefour_8h_a30d40afaa81e273b2bb09f76dc36c147}
+\begin{DoxyAuthor}{Author}
+\{ Gada R\+E\+Z\+G\+U\+I and Alexandre F\+A\+U\+C\+H\+E\+R\} 
+\end{DoxyAuthor}
