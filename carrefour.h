@@ -45,14 +45,25 @@ extern Shared * shared;
 
 
 /**********************************
- * semaphores
+ * Semaphores
  *********************************/
-extern int crossroadMutex;
 
 extern int roadLights[NB_ROADLIGHTS];
 extern int drive[NB_ROADLIGHTS];
 
+/*********************************
+ * Mutex
+ *********************************/
+extern int crossroadMutex;
+extern int nbCarWaitingFirstRoadLightsMutex;
+extern int nbCarWaitingSecondRoadLightsMutex;
+extern int numberOfAllCarCreatedMutex;
+
+
 /***** the shared memory key's ****/
 extern int sharedKey;// now we can detached all the link, no matter where it found
- 
+
+void createProcessConntrolRoadLight();
+void changeRoadLights(int route);
+
 #endif /* defined(____carrefour__) */
