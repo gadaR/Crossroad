@@ -50,7 +50,6 @@ static int match_regex (regex_t * r, const char * to_match, int * nbCarsMax, int
     while (1) {
         nomatch = regexec (r, p, n_matches, m, 0);
         if (nomatch) {
-            printf ("No more matches.\n");
             return nomatch;
         }
         /* 1 */
@@ -63,7 +62,7 @@ static int match_regex (regex_t * r, const char * to_match, int * nbCarsMax, int
         tab  = malloc (sizeof (*tab) * (size + 1) * 3);
         strncpy (tab, &to_match[start], size);
         *valMaxTimeToWaitForCreatingCar = atoi(tab);
-        printf("%d \n",*valMaxTimeToWaitForCreatingCar);
+//        printf("%d \n",*valMaxTimeToWaitForCreatingCar);
         
         
         /* 2 */
@@ -76,7 +75,7 @@ static int match_regex (regex_t * r, const char * to_match, int * nbCarsMax, int
         tab  = malloc (sizeof (*tab) * (size + 1) * 3);
         strncpy (tab, &to_match[start], size);
         *nbCarsMax = atoi(tab);
-        printf("%d \n",*nbCarsMax);
+//        printf("%d \n",*nbCarsMax);
         
         
         /* 3 */
@@ -89,7 +88,7 @@ static int match_regex (regex_t * r, const char * to_match, int * nbCarsMax, int
         tab  = malloc (sizeof (*tab) * (size + 1) * 3);
         strncpy (tab, &to_match[start], size);
         shared->timeToWaitRoadLights = atoi(tab);
-        printf("%d \n",shared->timeToWaitRoadLights);
+//        printf("%d \n",shared->timeToWaitRoadLights);
         
         
         
@@ -123,7 +122,7 @@ void readFile (char * filename, int * nbCarsMax, int * valMaxTimeToWaitForCreati
     
     cpt = 0;
     while (fgets(line, sizeof(line), stream) != NULL){
-        printf(" %s \n", line);
+//        printf(" %s \n", line);
         compile_regex(& preg, regex_text);
         match_regex(& preg, line, nbCarsMax, valMaxTimeToWaitForCreatingCar);
         regfree (& preg);
