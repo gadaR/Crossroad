@@ -26,6 +26,7 @@ typedef struct{
     int index;
 }Car;
 Car genereCar(int route);
-Car genereCarRandomly( int valMax);
+Car genereCarRandomly( int valMax, int nbCarsMax);
 void carsCrossroad(Car car);
+void readFile (char * filename, int * nbCarsMax, int * valMaxTimeToWaitForCreatingCar) ;
 #endif /* defined(____cars__) */

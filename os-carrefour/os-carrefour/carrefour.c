@@ -22,7 +22,7 @@ int drive[NB_ROADLIGHTS];
 int roadLights[NB_ROADLIGHTS];
 
 int sharedKey;
-void changeRoadLights( int timeToWaitRoadLights, int route){
+void changeRoadLights(  int route){
     if (route == PRIMARY_ROUTE) {
     if (shared->numberOfCarsInCrossroads == 0 && shared->secondRoadLights == RED) {
         P(roadLights[PRIMARY_ROUTE]);
@@ -31,34 +31,22 @@ void changeRoadLights( int timeToWaitRoadLights, int route){
             exit(0);
         }
             shared->firstRoadLights= GREEN;
-<<<<<<< Updated upstream
-        printf("CROSSROAD : the roadLight on the road %d is green\n", route);
-        V(drive[PRIMARY_ROUTE]);
-        usleep(timeToWaitRoadLights*2000);
-        shared->firstRoadLights= RED;
-        V(roadLights[SECONDARY_ROUTE]);
-=======
-<<<<<<< HEAD
-        printf("CROSSROAD : the roadLight in the route %d is green\n", route);
+
+        printf("CROSSROAD : the roadLight on the route %d is green\n", route);
         if(shared->nbCarWaitingFirstRoadLights>0){
             printf("CROSSROAD : %d cars are freed \n ",shared->nbCarWaitingFirstRoadLights);
             V(drive[PRIMARY_ROUTE]);
         }
-        usleep(timeToWaitRoadLights*2000);
+//        printf("\n\ntime to wait %d \n\n", shared->timeToWaitRoadLights);
+        usleep(shared->timeToWaitRoadLights*2000);
         shared->firstRoadLights= RED;
         V(roadLights[SECONDARY_ROUTE]);
-        printf("CROSSROAD : the roadLight in the route %d is red \n", route);
-//        usleep(timeToWaitRoadLights*1000);
-=======
-        printf("CROSSROAD : the roadLight on the road %d is green\n", route);
-        V(drive[PRIMARY_ROUTE]);
-        usleep(timeToWaitRoadLights*2000);
-        shared->firstRoadLights= RED;
-        V(roadLights[SECONDARY_ROUTE]);
->>>>>>> Stashed changes
-        printf("CROSSROAD : the roadLight on the road %d is red \n", route);
-        usleep(timeToWaitRoadLights*1000);
->>>>>>> origin/master
+        if (shared->end){	/* if prog stopped while we were waiting */
+            shmfree(sharedKey, shared);
+            exit(0);
+        }
+        printf("CROSSROAD : the roadLight on the route %d is red \n", route);
+        
 
     }
     }else if (route ==SECONDARY_ROUTE){
@@ -69,48 +57,35 @@ void changeRoadLights( int timeToWaitRoadLights, int route){
                 exit(0);
             }
             shared->secondRoadLights= GREEN;
-<<<<<<< Updated upstream
-            printf("CROSSROAD : the roadLight on the road %d is green\n", route);
-            V(drive[SECONDARY_ROUTE]);
-            usleep(timeToWaitRoadLights*1000);
-            shared->secondRoadLights= RED;
-            V(roadLights[PRIMARY_ROUTE]);
-=======
-<<<<<<< HEAD
-            printf("CROSSROAD : the roadLight in the route %d is green\n", route);
+
+            printf("CROSSROAD : the roadLight on the route %d is green\n", route);
             if(shared->nbCarWaitingSecondRoadLights>0){
                 printf("CROSSROAD : %d cars are freed \n ",shared->nbCarWaitingSecondRoadLights);
                 V(drive[SECONDARY_ROUTE]);
             }
-            usleep(timeToWaitRoadLights*1000);
+            usleep(shared->timeToWaitRoadLights*1000);
             shared->secondRoadLights= RED;
             V(roadLights[PRIMARY_ROUTE]);
-            printf("CROSSROAD : the roadLight in the route %d is red \n", route);
-//            usleep(timeToWaitRoadLights*2000);
-=======
-            printf("CROSSROAD : the roadLight on the road %d is green\n", route);
-            V(drive[SECONDARY_ROUTE]);
-            usleep(timeToWaitRoadLights*1000);
-            shared->secondRoadLights= RED;
-            V(roadLights[PRIMARY_ROUTE]);
->>>>>>> Stashed changes
-            printf("CROSSROAD : the roadLight on the road %d is red \n", route);
-            usleep(timeToWaitRoadLights*2000);
->>>>>>> origin/master
+            if (shared->end){	/* if prog stopped while we were waiting */
+                shmfree(sharedKey, shared);
+                exit(0);
+            }
+            printf("CROSSROAD : the roadLight on the route %d is red \n", route);
 
         }
     }
     
 }
 int main (int argc, char ** argv){
-    int timeToWaitRoadLights=1000;//in ms, by default we wait 1s econd
     int i, roadLightsKey[NB_ROADLIGHTS], crossroadMutexKey, driveKey[NB_ROADLIGHTS];
+    int pidPrimaryRoadLight, pidSecondRoadLight;
     Car car;
     char rep;
     /* take Key */
     sharedKey =  ftok("/etc/passwd", 0);
     crossroadMutexKey = sharedKey +1;
-  
+    srand(time(NULL));
+
     /* shared memory / semaphore initialisation  */
     shared = (Shared*)shmalloc(sharedKey, sizeof(Shared));
     if (!shared) {
@@ -119,10 +94,11 @@ int main (int argc, char ** argv){
     }
     shared->end = 0;
     shared->numberOfCarsInCrossroads=0;
-    shared->numberOfAllCarCreated=0;
+    shared->numberOfAllCarCreated=1;
     shared->firstRoadLights=GREEN;
     shared->secondRoadLights=RED;
     shared->nbCarWaitingFirstRoadLights = 0;
+    shared->timeToWaitRoadLights=1000;//in ms, by default we wait 1s econd
     for (i = 0; i < NB_ROADLIGHTS; i++) {
         roadLightsKey[i] = crossroadMutexKey + 1 + i;
         roadLights[i] = semalloc(roadLightsKey[i],0);
@@ -156,14 +132,14 @@ int main (int argc, char ** argv){
         return 2;
     }
    
-    switch (fork()) {
+    switch (pidPrimaryRoadLight = fork()) {
         case -1:
             perror("error in fork");
             break;
         case 0 :
             V(roadLights[PRIMARY_ROUTE]);
             while (!shared->end) {
-                changeRoadLights( timeToWaitRoadLights ,PRIMARY_ROUTE);
+                changeRoadLights(PRIMARY_ROUTE);
             }
             shmfree(sharedKey, shared);
             exit(0);
@@ -172,13 +148,13 @@ int main (int argc, char ** argv){
             break;
     }
                         
-    switch (fork()) {
+    switch (pidSecondRoadLight = fork()) {
         case -1:
             perror("error in fork");
             break;
         case 0:
             while (!shared->end) {
-                    changeRoadLights(timeToWaitRoadLights,SECONDARY_ROUTE);
+                    changeRoadLights(SECONDARY_ROUTE);
             }
             shmfree(sharedKey, shared);
             exit(0);
@@ -192,123 +168,115 @@ int main (int argc, char ** argv){
         puts("you choose the interactive mode\n");
         
         puts("press q if you want to exit\n");
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-        puts("press : \n - P if you want to create a car in the first route \n - S in the second one \n");
+
+        puts("press : \n - P if you want to create a car in the primary road \n - S in the secondary one \n");
+        puts("CROSSROAD : the roadLight on the route 1 is red ");
+
                 while (1) {
-=======
->>>>>>> Stashed changes
-        puts("press : \n - P if you want to create a car on the first road \n - S on the second one \n");
-        while (1) {
->>>>>>> origin/master
+
             
             scanf("%c", &rep);
             getchar();
             
             switch (rep) {
-                    
-                case 'P' :
+                   
+				case 'P' :
                 case 'p' :
                     
                     car = genereCar(PRIMARY_ROUTE);
-                    usleep(100000);
-                    carsCrossroad(car);
                     if (shared->end){
                         shmfree(sharedKey, shared);
                         exit(0);
                     }
                     break;
-                case 'S' :
+				case 'S' :
                 case 's' :
                     
                     car = genereCar(SECONDARY_ROUTE);
-                    usleep(100000);
-                    carsCrossroad(car);
                     if (shared->end){
                         shmfree(sharedKey, shared);
                         exit(0);
                     }
                     break;
-                case 'Q' :
+				case 'Q' :
                 case 'q' :
                     /* quit */
-                    puts("quit");
                     /********* release memory ***/
                     shared->end =1;
                     for (i = 0; i < NB_ROADLIGHTS; i++)
-                    printf("%d routeLoad semaphore is %d (if 0 : it's released correctly) \n",i,semfree(roadLights[i]));
-                    printf("mutex %d (if 0 : it's released correctly)\n",mutfree(crossroadMutex));
+                        semfree(roadLights[i]);
+                    mutfree(crossroadMutex);
                     for (i = 0; i < NB_ROADLIGHTS; i++)
-                    printf(" drive semaphore is %d (if 0 : it's released correctly) \n",semfree(drive[i]));
+                        semfree(drive[i]);
                     shmfree(sharedKey, shared);
+                    puts("END CROSSROAD");
                     exit(0);
                 default:
                     puts(" Error : you can only press : \n - P if you want to create a car in the first route \n - S in the second one \n");
+                    if (shared->end){	/* if prog stopped while we were waiting */
+                        shmfree(sharedKey, shared);
+                        exit(0);
+                    }
                     break;
             }
         }
     
                     }else{
-                        int nbCarsMax = 50;
+                        int nbCarsMax = 30;
                         int valMaxTimeToWaitForCreatingCar = 1000;
                         /** read the argument **/
                         for (i=0; i<argc; i++) {
                             
                             /*** automatic mode ***/
                             if (strcmp(argv[i],"-a")==0) {
-                                puts("auto\n");
-                                valMaxTimeToWaitForCreatingCar = atoi(argv[i+1]);
-                                printf("You choose to wait %d ms before creating another car \n", valMaxTimeToWaitForCreatingCar);
+                                if (i+1< argc) {
+                                    valMaxTimeToWaitForCreatingCar = atoi(argv[i+1]);
+                                }
                                 
                             }
                             if (strcmp(argv[i],"-t")==0) {
-                                timeToWaitRoadLights = atoi(argv[i+1]);
-                                printf("You choose to wait %d ms before the the roadlights turn to green, (the primary will wait 2 * %d ms, and the secondary %d ms\n", timeToWaitRoadLights, timeToWaitRoadLights, timeToWaitRoadLights);
+                                shared->timeToWaitRoadLights = atoi(argv[i+1]);
                                 
                                 //tempsMax=atoi(argv[i+1])
                             }
                             if (strcmp(argv[i],"-n")==0) {
                                 nbCarsMax =atoi(argv[i+1]);
-                                printf("number max of cars %d\n", nbCarsMax );
+
                                 
                                 //carMax=atoi(argv[i+1])
                             }
                             if (strcmp(argv[i],"-f")==0) {
-                                printf("file name %s\n", argv[i+1]);
+                                readFile(argv[i+1], &nbCarsMax, &valMaxTimeToWaitForCreatingCar);
+//                                printf(" a= %d, n = %d \n", valMaxTimeToWaitForCreatingCar, nbCarsMax);
                                 
                             }
                         }
                         Car car;
-                        do {
-                            car = genereCarRandomly( 400);
-                            sleep(4);
-                            carsCrossroad(car);
-                        } while (shared->numberOfAllCarCreated<10);
+                         while (shared->numberOfAllCarCreated < nbCarsMax) {
+                            car = genereCarRandomly(valMaxTimeToWaitForCreatingCar, nbCarsMax);
+                        }
                         /* quit */
-                        puts("quit");
                         /********* release memory ***/
                         shared->end =1;
                         for (i = 0; i < NB_ROADLIGHTS; i++)
-                            printf("%d routeLoad semaphore is %d (if 0 : it's released correctly) \n",i,semfree(roadLights[i]));
-                        printf("mutex %d (if 0 : it's released correctly)\n",mutfree(crossroadMutex));
+                            semfree(roadLights[i]);
+                        mutfree(crossroadMutex);
                         for (i = 0; i < NB_ROADLIGHTS; i++)
-                            printf(" drive semaphore is %d (if 0 : it's released correctly) \n",semfree(drive[i]));
+                            semfree(drive[i]);
                         shmfree(sharedKey, shared);
+
+                        puts("END CROSSROAD");
+
                         exit(0);
+                        
+                        
                     }
-                    
-    /********* release memory ***/
-    for (i = 0; i < NB_ROADLIGHTS; i++)
-        printf("%d routeLoad semaphore is %d (if 0 : it's released correctly) \n",i,semfree(roadLights[i]));
-    shmfree(sharedKey, shared);
-    mutfree(crossroadMutex);
-    for (i = 0; i < NB_ROADLIGHTS; i++)
-        printf(" drive semaphore is %d (if 0 : it's released correctly) \n",semfree(drive[i]));
-    
-
-
    
+    while (waitpid(car.pid,0,0));
+    while (waitpid(pidPrimaryRoadLight,0,0));
+    while (waitpid(pidSecondRoadLight,0,0));
+    puts("END CROSSROAD");
+
     return 0;
     
     

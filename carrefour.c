@@ -4,13 +4,13 @@
 ///\author { Gada REZGUI and Alexandre FAUCHER}
 //
 //
-#include <unistd.h>
 
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
 #include "cars.h"
 #include "carrefour.h"
+#include "readFileRegex.h"
 
 Shared * shared;
 /**********************************
@@ -252,7 +252,7 @@ int main (int argc, char ** argv){
                             }
                         }
                         Car car;
-                         while (shared->numberOfAllCarCreated < nbCarsMax) {
+                         while (shared->numberOfAllCarCreated <= nbCarsMax) {
                             car = genereCarRandomly(valMaxTimeToWaitForCreatingCar, nbCarsMax);
                         }
                         /* quit */

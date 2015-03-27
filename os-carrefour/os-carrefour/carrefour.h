@@ -37,6 +37,7 @@ typedef struct {
     int secondRoadLights;
     int nbCarWaitingFirstRoadLights;
     int nbCarWaitingSecondRoadLights;
+    int timeToWaitRoadLights;
 
 } Shared;
 extern Shared * shared;

@@ -12,8 +12,11 @@ ipcTools.o : ipcTools.h ipcTools.c
 carrefour.o : carrefour.h carrefour.c
 	gcc -c -g carrefour.c
 
-crossroad : carrefour.o cars.o ipcTools.o 
-	gcc -o crossroad carrefour.o cars.o ipcTools.o 
+readFileRegex.o : readFileRegex.h readFileRegex.c
+	gcc -c -g readFileRegex.c
+
+crossroad : carrefour.o cars.o ipcTools.o readFileRegex.o
+	gcc -o crossroad carrefour.o cars.o ipcTools.o readFileRegex.o
 
 
 clean :
